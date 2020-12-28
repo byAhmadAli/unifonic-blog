@@ -1,0 +1,8 @@
+[ {
+  "id" : "footer_menu_field",
+  "name" : "footer_menu_field",
+  "label" : "Footer menu field",
+  "required" : false,
+  "locked" : false,
+  "type" : "menu"
+} ]

@@ -1,0 +1,31 @@
+<!-- {% form
+	form_to_use="{{ module.form_field.form_id }}"
+	response_response_type="{{ module.form_field.response_type }}"
+	response_message="{{ module.form_field.message }}"
+	response_redirect_id="{{ module.form_field.redirect_id }}"
+	response_redirect_url="{{module.form_field.redirect_url}}"
+	gotowebinar_webinar_key="{{ module.form_field.gotowebinar_webinar_key }}"
+%}  -->
+
+<div class="row mt-5">
+	<div class="col-md-6 primary-bg">
+		<div class="col-md-5 ml-auto">
+			<h2>Let Us Answer Your Questions!</h2>
+			<p>Talk to experts for customized solutions now.</p>
+		</div>
+	</div>
+	<div class="col-md-6 secondary-bg contact-form">
+		<div class="row">
+			<div class="col-md-10 pt-5 contact-form">
+				{% form
+					form_to_use="{{ module.form_field.form_id }}"
+					response_response_type="{{ module.form_field.response_type }}"
+					response_message="{{ module.form_field.message }}"
+					response_redirect_id="{{ module.form_field.redirect_id }}"
+					response_redirect_url="{{module.form_field.redirect_url}}"
+					gotowebinar_webinar_key="{{ module.form_field.gotowebinar_webinar_key }}"
+				%}
+			</div>
+		</div>
+	</div>
+</div>

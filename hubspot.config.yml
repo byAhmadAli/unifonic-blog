@@ -1,0 +1,12 @@
+defaultPortal: aali
+portals:
+  - name: aali
+    portalId: 9071458
+    authType: personalaccesskey
+    auth:
+      tokenInfo:
+        accessToken: >-
+          CIPI97bqLhIIAA0ADAAA4AEY4tapBCDH6pQGKO7pDDIZANQrPAJ3JVdT0u36KsiLzpKfAsZzg-kw2DogAAAEQQAAAHgAAAAAAAAAAIABAAAAAAAEwADAB2D-_zFCGQDUKzwCvzQTynhIdPqWmh6V04cKEZrUSME
+        expiresAt: '2020-12-28T01:02:08.391Z'
+    personalAccessKey: >-
+      CiRiZmY4OGI2Ni1jZDU2LTRlN2YtYmM1Ny0xNTZiM2VhZDcwNDEQ4tapBBjH6pQGKhkABeaRglH0cCUpU6Mb-y17ddhgyFhKQ0Lu

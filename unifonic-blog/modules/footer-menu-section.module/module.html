@@ -1,0 +1,94 @@
+{# Default menu item classes #}
+
+{% macro defaultItemClasses() %}
+ {{
+  {
+    'class': 'nav-item'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item classes if a menu item has a child menu #}
+
+{% macro childClasses() %}
+ {{
+  {
+    'class': 'nav-item dropdown'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item link attributes if the menu item is the current active page #}
+
+{% macro activeNode() %}
+ {{
+  {
+    'class': 'nav-item active',
+    'aria-current': 'page'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item link classes if menu item is the parent of the current active page #}
+
+{% macro activeBranch() %}
+ {{
+  {
+    'class': 'menu-link active-branch'
+  }|xmlattr
+
+ }}
+{% endmacro %}
+
+{# Menu item link attribute if the menu item is set to open in a new window #}
+
+{% macro linkTarget() %}
+{{
+  {
+    'class': 'menu-link'
+    'target': '_blank',
+    'rel': 'noopener'
+  }|xmlattr
+}}
+{% endmacro %}
+
+{# Navigation menu item macro #}
+
+{% macro link(node) %}
+  <div class="col-6 col-md">
+    {% if !node.children %}
+      <h4><a href="{{ node.url if node.url else 'javascript:;' }}">{{ node.label }}</a></h4>
+    {% endif %}
+    {% if node.children %}
+      <h4>{{ node.label }}</h4>
+      {{ renderDropdown(node) }}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{# Navigation submenu macro #}
+
+{% macro renderNavigation(menuTree) %}
+  {% set level = level + 1 %}
+    {% for node in menuTree.children %}
+      {{ link(node) }}
+    {% endfor %}
+{% endmacro %}
+
+{% macro renderDropdown(menuTree) %}
+  {% set level = level + 1 %}
+  <ul class="list-unstyled text-small">
+    {% for node in menuTree.children %}
+      {{ linkDropDown(node) }}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro linkDropDown(menuTree) %}
+  {% set level = level + 1 %}
+  <li><a href="{{ node.url if node.url else 'javascript:;' }}">{{ node.label }}</a></li>
+{% endmacro %}
+
+{# Main navigation wrapper #}
+
+{{ renderNavigation(menu(module.footer_menu_field)) }}

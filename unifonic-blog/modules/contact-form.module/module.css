@@ -1,0 +1,14 @@
+.hs-input {
+  width: 100% !important;
+}
+.grecaptcha-badge {
+  float: left;
+}
+.hs-submit {
+  float: right;
+}
+.contact-form form input[type="submit"],
+form .hs-button {
+  width: 113px;
+  padding: 16px 10px !important;
+}

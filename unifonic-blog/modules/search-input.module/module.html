@@ -1,0 +1,36 @@
+{# Need help setting up site search?
+    Start here: https://knowledge.hubspot.com/articles/kcs_article/cos-general/how-do-i-set-up-a-results-page-for-my-search-field-in-hubspot #}
+ 
+ <div class="hs-search-field"> 
+     <div class="hs-search-field__bar search-box"> 
+       <form action="/{{ site_settings.content_search_results_page_path }}">
+         {% if module.field_label %}
+           <label for="term">{{ module.field_label }}</label>
+         {% endif %}
+         <div class="form-group mb-3">
+          <input type="text" class="form-control hs-search-field__input" name="term" autocomplete="off" placeholder="{{ module.placeholder }}" aria-label="{{ module.field_label || "Search" }}" aria-describedby="basic-addon2">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M14.53 15.59a8.25 8.25 0 111.06-1.06l5.69 5.69a.75.75 0 11-1.06 1.06l-5.69-5.69zM2.5 9.25a6.75 6.75 0 1111.74 4.547.746.746 0 00-.443.442A6.75 6.75 0 012.5 9.25z"></path></svg>
+          </div>
+        </div>
+         {% if module.content_types.website_pages %}
+           <input type="hidden" name="type" value="SITE_PAGE">
+         {% endif %}
+         {% if module.content_types.landing_pages %}
+           <input type="hidden" name="type" value="LANDING_PAGE">
+         {% endif %}
+         {% if module.content_types.blog_posts %}
+           <input type="hidden" name="type" value="BLOG_POST">
+           <input type="hidden" name="type" value="LISTING_PAGE">
+         {% endif %}
+         {% if module.content_types.knowledge_articles %}
+           <input type="hidden" name="type" value="KNOWLEDGE_ARTICLE">
+         {% endif %}
+ 
+         {% if module.include_search_button %}
+           <button aria-label="Search">{% icon name="search" style="solid" %}</button>
+         {% endif %}
+       </form>
+     </div>
+     <ul class="hs-search-field__suggestions"></ul>
+ </div>

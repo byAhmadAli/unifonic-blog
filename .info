@@ -1,0 +1,2 @@
+hs fetch --account=aali unifonic-blog .
+hs watch --account=aali ./unifonic-blog ./unifonic-blog --initial-upload 

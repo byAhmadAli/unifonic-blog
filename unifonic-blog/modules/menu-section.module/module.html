@@ -1,0 +1,98 @@
+{# Default menu item classes #}
+
+{% macro defaultItemClasses() %}
+ {{
+  {
+    'class': 'nav-item'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item classes if a menu item has a child menu #}
+
+{% macro childClasses() %}
+ {{
+  {
+    'class': 'nav-item dropdown'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item link attributes if the menu item is the current active page #}
+
+{% macro activeNode() %}
+ {{
+  {
+    'class': 'nav-item active',
+    'aria-current': 'page'
+  }|xmlattr
+ }}
+{% endmacro %}
+
+{# Menu item link classes if menu item is the parent of the current active page #}
+
+{% macro activeBranch() %}
+ {{
+  {
+    'class': 'menu-link active-branch'
+  }|xmlattr
+
+ }}
+{% endmacro %}
+
+{# Menu item link attribute if the menu item is set to open in a new window #}
+
+{% macro linkTarget() %}
+{{
+  {
+    'class': 'menu-link'
+    'target': '_blank',
+    'rel': 'noopener'
+  }|xmlattr
+}}
+{% endmacro %}
+
+{# Navigation menu item macro #}
+
+{% macro link(node) %}
+  <li {{ childClasses() if node.children else defaultItemClasses() }} {{ activeBranch() if node.activeBranch }} {{ activeNode() if node.activeNode }} {{ linkTarget() if node.linkTarget }}>
+    {% if !node.children %}
+      <a href="{{ node.url if node.url else 'javascript:;' }}" class="nav-link">{{ node.label }}</a>
+    {% endif %}
+    {% if node.children %}
+      <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ node.label }}</a>
+      {{ renderDropdown(node) }}
+    {% endif %}
+  </li>
+{% endmacro %}
+
+{# Navigation submenu macro #}
+
+{% macro renderNavigation(menuTree) %}
+  {% set level = level + 1 %}
+  <ul class="navbar-nav ml-auto">
+    {% for node in menuTree.children %}
+      {{ link(node) }}
+    {% endfor %}
+  </ul>
+{% endmacro %}
+
+{% macro renderDropdown(menuTree) %}
+  {% set level = level + 1 %}
+  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+    {% for node in menuTree.children %}
+      {{ linkDropDown(node) }}
+    {% endfor %}
+  </div>
+{% endmacro %}
+
+{% macro linkDropDown(menuTree) %}
+  {% set level = level + 1 %}
+  <a class="dropdown-item" href="{{ node.url if node.url else 'javascript:;' }}">{{ node.label }}</a>
+{% endmacro %}
+
+{# Main navigation wrapper #}
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  {{ renderNavigation(menu(module.primary_menu_field)) }}
+</div>

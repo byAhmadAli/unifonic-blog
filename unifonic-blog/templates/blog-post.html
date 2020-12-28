@@ -1,0 +1,64 @@
+<!--
+  templateType: blog
+  isAvailableForNewContent: true
+  label: Boilerplate - blog post
+  screenshotPath: ../images/template-previews/blog-post.png
+-->
+{% extends './layouts/base.html' %}
+
+{% block body %}
+{# The main-content ID is used for the navigation skipper in the header.html file. More information on the navigation skipper can be found here: https://github.com/HubSpot/cms-theme-boilerplate/wiki/Accessibility #}
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <h3 class="mb-3">{{ content.name }}</h3>
+      <span class="article-time">{{ content.publish_date_localized }}</span>
+    </div>
+  </div>
+</div>
+<div class="row auther-details mt-3">
+  <div class="container">
+    <div class="col-2">
+      <div class="share-article"></div>
+    </div>
+    <div class="col-10 col-md-8 mx-auto">
+      <img src="{{ content.blog_post_author.avatar }}" alt="{{ content.blog_post_author.display_name }}" />
+      <h6>{{ content.blog_post_author.display_name }}</h6>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-6 col-md-2 align-self-start sticky-top">
+      {% if content.previous_post_slug %}
+      <div class="previous-article">
+        <a class="next-previous" href="/{{ content.previous_post_slug }}">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>
+          </div>
+          <h4>Previous article</h4>
+          <h6>{{ content.previous_post_name }}</h6>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-md-8">
+      <img class="img-fluid mb-3" src="{{ content.featured_image }}" alt="{{ content.name|striptags }}" />
+      {{ content.post_body }}
+    </div>
+    <div class="col-6 col-md-2 align-self-start sticky-top text-right">
+      {% if content.next_post_slug %}
+      <div class="next-article">
+        <a class="next-previous" href="/{{ content.next_post_slug }}">
+          <div>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path fill-rule="evenodd" d="M8.22 2.97a.75.75 0 011.06 0l4.25 4.25a.75.75 0 010 1.06l-4.25 4.25a.75.75 0 01-1.06-1.06l2.97-2.97H3.75a.75.75 0 010-1.5h7.44L8.22 4.03a.75.75 0 010-1.06z"></path></svg>
+          </div>
+          <h4>Next article</h4>
+          <h6>{{ content.next_post_name }}</h6>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock body %}

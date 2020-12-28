@@ -1,0 +1,18 @@
+.footer-section .list-unstyled li {
+  margin-bottom: 10px;
+}
+.footer-section .list-unstyled a {
+  color: var(--secondary) !important;
+  transition: all 0.4s ease;
+}
+
+.footer-section .list-unstyled a:hover {
+  color: var(--primary) !important;
+  padding-left: 10px;
+  text-decoration: none;
+}
+
+.footer-section h4 {
+  font-weight: bold;
+  margin-bottom: 15px;
+}

@@ -1,0 +1,130 @@
+<!--
+  templateType: blog
+  isAvailableForNewContent: true
+  label: Boilerplate - blog listing
+  screenshotPath: ../images/template-previews/blog-index.png
+-->
+{% extends './layouts/base.html' %}
+
+{% block body %}
+{# The main-content ID is used for the navigation skipper in the header.html file. More information on the navigation skipper can be found here: https://github.com/HubSpot/cms-theme-boilerplate/wiki/Accessibility #}
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-12">
+      <div class="row">
+        {# Blog header #}
+        <div class="col-md-6">
+          
+          {# Blog author listing header #}
+          <h2>{{ group.public_title }}</h2>
+          <p>{{ group.description }}</p>
+          {# End blog listing header #}
+        </div>
+        {# End blog header #}
+        <div class="col-md-6">
+          {% module "site_search" path="../modules/search-input", label="search-input" %}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-posts mt-5">
+    <div class="row">
+      {% set posts = blog_recent_posts('default', 3) %}
+      <div class="col-md-6">
+        
+        {% for post in posts %}
+          {% if loop.index == 1 %}
+          <div class="post main-post mb-5">
+            <div class="featured-image">
+              <img src="{{ post.featured_image }}" alt="{{ post.name }}">
+            </div>
+            <div class="post-body">
+              {% if post.tag_list %}
+              <div class="post-tags">
+                {% for tag in post.tag_list %}
+                  <span>{{ tag.name }}</span>{% if not loop.last %},{% endif %}
+                {% endfor %}
+              </div>
+              {% endif %}
+              <h4 class="post-title"><a href="{{ post.absolute_url }}">{{ post.name }}</a></h4>
+              <p>{{ post.post_list_content|striptags|truncatehtml(100) }}</p>
+            </div>
+          </div>
+          {%endif%}
+        {% endfor %}
+      </div>
+      <div class="col-md-6">
+        {% for post in posts %}
+          {% if loop.index > 1 %}
+          <div class="post blog-post clearfix">
+            <div class="featured-image w-50">
+              <img src="{{ post.featured_image }}" alt="{{ post.name }}">
+            </div>
+            <div class="post-body pr-4 w-50">
+              <div>
+                {% if post.tag_list %}
+                <div class="post-tags">
+                  {% for tag in post.tag_list %}
+                    <span>{{ tag.name }}</span>{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                </div>
+                {% endif %}
+                <h4 class="post-title"><a href="{{ post.absolute_url }}">{{ post.name }}</a></h4>
+                <p>{{ post.post_list_content|striptags|truncatehtml(100) }}</p>
+              </div>
+            </div>
+          </div>
+          {%endif%}
+          {% if not loop.last && loop.index != 1 %}
+          <hr/>
+          {%endif%}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <div class="all-posts mt-5">
+    <div class="row">
+      {% set posts = blog_recent_posts('default') %}
+      <div class="col-md-8 mb-5">
+        <h3>All Articles</h3>
+        {% for post in posts %}
+          {% if loop.index > 3 %}
+          <div class="post blog-post clearfix mt-4">
+            <div class="featured-image">
+              <img src="{{ post.featured_image }}" alt="{{ post.name }}">
+            </div>
+            <div class="post-body pl-4">
+              <div>
+                {% if post.tag_list %}
+                <div class="post-tags">
+                  {% for tag in post.tag_list %}
+                    <span>{{ tag.name }}</span>{% if not loop.last %},{% endif %}
+                  {% endfor %}
+                </div>
+                {% endif %}
+                <h4 class="post-title"><a href="{{ post.absolute_url }}">{{ post.name }}</a></h4>
+                <p>{{ post.post_list_content|striptags|truncatehtml(100) }}</p>
+              </div>
+            </div>
+          </div>
+          {% if not loop.last && loop.index != 3 %}
+          <hr/>
+          {%endif%}
+          {%endif%}
+        {% endfor %}
+      </div>
+      <div class="col-md-4 align-self-start sticky-top">
+        <div class="subscribe-form clearfix">
+          <h4>Subscribe to our blog</h4>
+          <p>Get our best content in your inbox.</p>
+          {% module "blog_subscribe_form" path="@hubspot/blog_subscribe",
+            title=""
+          %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock body %}
